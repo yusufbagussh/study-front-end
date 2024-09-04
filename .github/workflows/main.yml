@@ -1,19 +1,43 @@
-name: Deploy to CWPanel
+# name: Deploy to CWPanel
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   FTP-Deploy-Action:
+#     name: FTP-Deploy-Action
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2.1.0
+#       with:
+#         fetch-depth: 2
+#     - name: FTP-Deploy-Action
+#       uses: SamKirkland/FTP-Deploy-Action@4.3.3
+#       with:
+#         server: ${{ secrets.SERVER }}
+#         username: ${{ secrets.USERNAME }}
+#         password: ${{ secrets.PASSWORD }}
+
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+name: 🚀 Deploy website on push
 jobs:
-  FTP-Deploy-Action:
-    name: FTP-Deploy-Action
+  web-deploy:
+    name: 🎉 Auto Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.1.0
-      with:
-        fetch-depth: 2
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2.3.2
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: ${{ secrets.SERVER }}
         username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        password: ${{ secrets.PASSWORD }}
+        protocol: ftps
+        port: ${{ secrets.PORT }}
+        exclude: .git*
+          - .git*/**
+          - .github
