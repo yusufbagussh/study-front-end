@@ -1,4 +1,4 @@
-name: Deploy to CPanel
+name: Deploy to CWPanel
 on:
   push:
     branches:
